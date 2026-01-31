@@ -190,6 +190,8 @@ fi
 
 retry_budget="$startup_timeout"
 last_error=""
+empty_retry_limit=3
+empty_retry_count=0
 err_file="$(mktemp "${TMPDIR:-/tmp}/url_to_markdown_err.XXXXXX")"
 trap 'rm -f "$err_file"' EXIT
 while :; do
@@ -199,7 +201,16 @@ while :; do
   status=$?
   set -e
   if [ "$status" -eq 0 ]; then
-    break
+    if [ -n "$output" ]; then
+      break
+    fi
+    empty_retry_count=$((empty_retry_count + 1))
+    if [ "$empty_retry_count" -ge "$empty_retry_limit" ]; then
+      printf 'URL to markdown scrape returned empty output after %s attempts.\n' "$empty_retry_limit" >&2
+      exit 1
+    fi
+    sleep 10
+    continue
   fi
   last_error="$(cat "$err_file")"
   retry_budget=$((retry_budget - retry_interval))
