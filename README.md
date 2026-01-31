@@ -15,13 +15,7 @@ Each skill lives in its own folder and must include `SKILL.md`. Optional folders
 From the target repository where you want the skill available:
 
 ```
-$skill-installer --repo <owner>/<repo> --path skills/.curated/<skill-name> --dest .codex/skills
-```
-
-Or, using a GitHub URL:
-
-```
-$skill-installer --url https://github.com/<owner>/<repo>/tree/<ref>/skills/.curated/<skill-name> --dest .codex/skills
+$skill-installer let me pick skills from https://github.com/Skarian/codex-skills/tree/main/skills/.curated/
 ```
 
 Restart Codex to pick up new skills.
