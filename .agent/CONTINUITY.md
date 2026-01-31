@@ -6,12 +6,13 @@ Add dated entries with provenance tags per AGENTS.md: [USER], [CODE], [TOOL], [A
 ## Snapshot
 
 Goal: 2026-01-31 [USER] Provide a generic url-to-markdown curated skill that prints markdown to stdout with minimal SKILL.md.
-Now: 2026-01-31 [CODE] Archived ExecPlan after user validation of self-test and scrape.
-Next: 2026-01-31 [ASSUMPTION] Await next request.
+Now: 2026-01-31 [CODE] Updated url-to-markdown scripts for bash invocation and hardened lock cleanup; updated docs.
+Next: 2026-01-31 [ASSUMPTION] Await next request or run updated scripts in a fresh project.
 Open Questions: 2026-01-31 [USER] None.
 
 ## Done (recent)
 
+- 2026-01-31 [CODE] Updated url-to-markdown scripts to invoke via bash and treat missing/invalid lock timestamps as stale; refreshed docs.
 - 2026-01-31 [USER] Validated `url_to_markdown_selftest.sh` and `url_to_markdown_scrape.sh` after shared-state changes.
 - 2026-01-31 [CODE] Archived ExecPlan `EP-2026-01-31__firecrawl-selfhosted-cli` and updated the index.
 - 2026-01-31 [CODE] Implemented shared state under `CODEX_HOME`/`~/.codex` with locking and updated docs/ignore rules.
@@ -67,3 +68,4 @@ Open Questions: 2026-01-31 [USER] None.
 - 2026-01-31 [USER] `url_to_markdown_selftest.sh` completed with clean stdout output and immediate shutdown.
 - 2026-01-31 [USER] Confirmed `url_to_markdown_selftest.sh` and `url_to_markdown_scrape.sh` both work correctly after shared-state changes.
 - 2026-01-31 [CODE] Archived ExecPlan `EP-2026-01-31__firecrawl-selfhosted-cli` and updated `.agent/execplans/INDEX.md`.
+- 2026-01-31 [CODE] Updated url-to-markdown scripts to run helper scripts via bash and hardened stale-lock cleanup; adjusted docs.

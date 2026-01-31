@@ -7,7 +7,7 @@ description: Convert a single URL to markdown with stdout output and idle shutdo
 
 ## Run
 
-    scripts/url_to_markdown_scrape.sh <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
+    bash scripts/url_to_markdown_scrape.sh <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
 
 Provide a URL and capture the markdown from stdout.
 

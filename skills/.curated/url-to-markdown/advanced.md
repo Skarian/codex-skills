@@ -29,7 +29,7 @@
 
 Run:
 
-    scripts/url_to_markdown_selftest.sh
+    bash scripts/url_to_markdown_selftest.sh
 
 This scrapes `https://example.com`, verifies the markdown contains `Example Domain`, prints markdown to stdout, and stops the stack immediately after validation.
 

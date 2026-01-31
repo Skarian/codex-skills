@@ -73,7 +73,13 @@ acquire_lock() {
           rm -rf "$lock_dir"
           continue
         fi
+      else
+        rm -rf "$lock_dir"
+        continue
       fi
+    else
+      rm -rf "$lock_dir"
+      continue
     fi
     if [ $((now - start)) -ge "$lock_timeout" ]; then
       printf 'Timed out waiting for the shared lock.\n' >&2

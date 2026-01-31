@@ -25,10 +25,10 @@ This skill converts a single URL into markdown through a local, self-hosted pipe
 
 ## Usage
 
-    scripts/url_to_markdown_scrape.sh <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
+    bash scripts/url_to_markdown_scrape.sh <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
 
 ## Self-test
 
-    scripts/url_to_markdown_selftest.sh
+    bash scripts/url_to_markdown_selftest.sh
 
 The self-test prints markdown to stdout and stops the containers immediately after validation.

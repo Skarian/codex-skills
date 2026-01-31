@@ -29,7 +29,7 @@ compose_project="${FIRECRAWL_COMPOSE_PROJECT:-firecrawl-selfhosted}"
 
 url="https://example.com"
 
-output="$(FIRECRAWL_UP_QUIET=0 "$script_dir/url_to_markdown_scrape.sh" "$url")"
+output="$(FIRECRAWL_UP_QUIET=0 bash "$script_dir/url_to_markdown_scrape.sh" "$url")"
 
 if [ -z "$output" ]; then
   printf 'Expected stdout output but received none.\n' >&2
@@ -64,7 +64,13 @@ if [ -f "$compose_file" ]; then
             rm -rf "$lock_dir"
             continue
           fi
+        else
+          rm -rf "$lock_dir"
+          continue
         fi
+      else
+        rm -rf "$lock_dir"
+        continue
       fi
       if [ $((now - start)) -ge "$lock_timeout" ]; then
         printf 'Timed out waiting for the shared lock.\n' >&2
