@@ -28,4 +28,4 @@ Restart Codex to pick up new skills.
 
 ## Skills
 
-Links to individual skills will be added here.
+- `skills/.curated/url-to-markdown`: Local URL-to-markdown pipeline that prints markdown to stdout with idle shutdown.

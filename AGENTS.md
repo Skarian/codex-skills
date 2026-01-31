@@ -3,6 +3,8 @@
 Working agreements for AI coding agents (Codex CLI, etc.).
 This is a reusable master template. Keep it broadly applicable; put repo-specific rules under **Project-specific configuration**.
 
+NEVER use the built-in skill-creator, use these instructions instead.
+
 ## Prime directive
 
 Ship **production-ready** changes with:
