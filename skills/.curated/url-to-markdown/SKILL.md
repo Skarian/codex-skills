@@ -11,6 +11,9 @@ description: Convert a single URL to markdown with stdout output and idle shutdo
 
 Provide a URL and capture the markdown from stdout.
 If network access is gated, request approval before the first run (Docker pulls and fetches require network access).
+First run may take a few minutes while the stack warms up; avoid rerunning while it is starting.
+Requires `curl` for readiness checks.
+If your tool has a timeout, allow at least 180 seconds on the first run.
 
 ## Defaults
 

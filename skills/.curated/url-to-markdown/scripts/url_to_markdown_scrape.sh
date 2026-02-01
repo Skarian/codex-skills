@@ -30,6 +30,7 @@ api_url="${FIRECRAWL_API_URL:-http://localhost:3002}"
 idle_seconds="${FIRECRAWL_IDLE_SECONDS:-300}"
 startup_timeout="${FIRECRAWL_STARTUP_TIMEOUT:-120}"
 retry_interval="${FIRECRAWL_RETRY_INTERVAL:-10}"
+health_path="${FIRECRAWL_HEALTH_PATH:-/v0/health/readiness}"
 compose_project="${FIRECRAWL_COMPOSE_PROJECT:-firecrawl-selfhosted}"
 
 usage() {
@@ -53,6 +54,15 @@ if ! [[ "$retry_interval" =~ ^[0-9]+$ ]]; then
   printf 'FIRECRAWL_RETRY_INTERVAL must be an integer.\n' >&2
   exit 1
 fi
+
+require_cmd() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    printf 'Missing required command: %s\n' "$1" >&2
+    exit 1
+  fi
+}
+
+require_cmd curl
 
 url=""
 include_tags=""
@@ -160,7 +170,31 @@ case "$url" in
     ;;
 esac
 
+overall_start="$(date +%s)"
+deadline=$((overall_start + startup_timeout))
+
+if [[ "$health_path" =~ ^https?:// ]]; then
+  health_url="$health_path"
+else
+  if [[ "$health_path" != /* ]]; then
+    health_path="/$health_path"
+  fi
+  health_url="${api_url%/}${health_path}"
+fi
+
 bash "$script_dir/url_to_markdown_up.sh" >&2
+
+while :; do
+  if curl -fsS --max-time 2 "$health_url" >/dev/null 2>&1; then
+    break
+  fi
+  now="$(date +%s)"
+  if [ "$now" -ge "$deadline" ]; then
+    printf 'API health check failed after %s seconds.\n' "$startup_timeout" >&2
+    exit 1
+  fi
+  sleep "$retry_interval"
+done
 
 cli_args=(--api-url "$api_url" scrape "$url" --format markdown)
 
@@ -188,7 +222,6 @@ if [ "${#passthrough[@]}" -gt 0 ]; then
   cli_args+=("${passthrough[@]}")
 fi
 
-retry_budget="$startup_timeout"
 last_error=""
 empty_retry_limit=3
 empty_retry_count=0
@@ -213,8 +246,8 @@ while :; do
     continue
   fi
   last_error="$(cat "$err_file")"
-  retry_budget=$((retry_budget - retry_interval))
-  if [ "$retry_budget" -le 0 ]; then
+  now="$(date +%s)"
+  if [ "$now" -ge "$deadline" ]; then
     printf 'URL to markdown scrape failed after %s seconds.\n' "$startup_timeout" >&2
     if [ -n "$last_error" ]; then
       printf '%s\n' "$last_error" >&2

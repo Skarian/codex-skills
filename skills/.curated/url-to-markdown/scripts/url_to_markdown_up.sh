@@ -114,6 +114,9 @@ BULL_AUTH_KEY=CHANGEME
 TEST_API_KEY=
 POSTHOG_API_KEY=
 POSTHOG_HOST=
+NUQ_RABBITMQ_URL=
+RABBITMQ_DEFAULT_USER=firecrawl
+RABBITMQ_DEFAULT_PASS=firecrawl
 SUPABASE_ANON_TOKEN=
 SUPABASE_URL=
 SUPABASE_SERVICE_TOKEN=
@@ -150,6 +153,7 @@ x-common-env: &common-env
   REDIS_RATE_LIMIT_URL: ${REDIS_RATE_LIMIT_URL:-redis://redis:6379}
   PLAYWRIGHT_MICROSERVICE_URL: ${PLAYWRIGHT_MICROSERVICE_URL:-http://playwright-service:3000/scrape}
   NUQ_DATABASE_URL: ${NUQ_DATABASE_URL:-postgres://postgres:postgres@nuq-postgres:5432/postgres}
+  NUQ_RABBITMQ_URL: ${NUQ_RABBITMQ_URL:-amqp://firecrawl:firecrawl@rabbitmq:5672}
   USE_DB_AUTHENTICATION: ${USE_DB_AUTHENTICATION:-}
   OPENAI_API_KEY: ${OPENAI_API_KEY:-}
   OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
@@ -206,6 +210,8 @@ services:
         condition: service_started
       playwright-service:
         condition: service_started
+      rabbitmq:
+        condition: service_started
       nuq-postgres:
         condition: service_healthy
     command: node dist/src/index.js
@@ -220,6 +226,8 @@ services:
       ENV: local
     depends_on:
       redis:
+        condition: service_started
+      rabbitmq:
         condition: service_started
       nuq-postgres:
         condition: service_healthy
@@ -236,6 +244,8 @@ services:
     depends_on:
       redis:
         condition: service_started
+      rabbitmq:
+        condition: service_started
       nuq-postgres:
         condition: service_healthy
     command: node dist/src/services/extract-worker.js
@@ -243,6 +253,13 @@ services:
   redis:
     image: redis:alpine
     command: redis-server --bind 0.0.0.0
+
+  rabbitmq:
+    image: rabbitmq:3
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-firecrawl}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-firecrawl}
 
   nuq-postgres:
     build:

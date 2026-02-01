@@ -6,9 +6,9 @@ Add dated entries with provenance tags per AGENTS.md: [USER], [CODE], [TOOL], [A
 ## Snapshot
 
 Goal: 2026-01-31 [USER] Provide a generic url-to-markdown curated skill that prints markdown to stdout with minimal SKILL.md.
-Now: 2026-01-31 [CODE] Updated url-to-markdown docs to use installed-path commands and added network-approval guidance.
-Next: 2026-01-31 [ASSUMPTION] Re-test skill from a fresh project using the installed-path command.
-Open Questions: 2026-01-31 [USER] None.
+Now: 2026-02-01 [CODE] Switched readiness probe default to /v0/health/readiness based on live curl tests; RabbitMQ defaults remain.
+Next: 2026-02-01 [ASSUMPTION] Re-run selftest and scrape to confirm readiness probe and RabbitMQ fixes.
+Open Questions: 2026-02-01 [USER] None.
 
 ## Done (recent)
 
@@ -16,6 +16,10 @@ Open Questions: 2026-01-31 [USER] None.
 - 2026-01-31 [CODE] Increased default startup retry window to 120 seconds and retry interval to 10 seconds.
 - 2026-01-31 [CODE] Added empty-output retry logic (3 attempts, 10s wait) to the scrape script and documented it.
 - 2026-01-31 [CODE] Updated url-to-markdown scripts to invoke via bash and treat missing/invalid lock timestamps as stale; refreshed docs.
+- 2026-02-01 [CODE] Added curl-based health readiness gate (default /health) before scraping and documented curl/cold-start expectations.
+- 2026-02-01 [CODE] Removed health-wait stderr notice; documented 180s tool timeout guidance.
+- 2026-02-01 [CODE] Added RabbitMQ service and default NUQ_RABBITMQ_URL to avoid extract-worker crashes; documented overrides.
+- 2026-02-01 [CODE] Set readiness probe default to `/v0/health/readiness`.
 - 2026-01-31 [USER] Validated `url_to_markdown_selftest.sh` and `url_to_markdown_scrape.sh` after shared-state changes.
 - 2026-01-31 [CODE] Archived ExecPlan `EP-2026-01-31__firecrawl-selfhosted-cli` and updated the index.
 - 2026-01-31 [CODE] Implemented shared state under `CODEX_HOME`/`~/.codex` with locking and updated docs/ignore rules.
