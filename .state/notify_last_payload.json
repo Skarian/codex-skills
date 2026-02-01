@@ -1,0 +1,18 @@
+{
+  "topic": "codex-events",
+  "title": "Codex [skills-dev] turn complete",
+  "message": "Codex turn complete",
+  "tags": [
+    "codex",
+    "tmux",
+    "sess.skills-dev"
+  ],
+  "actions": [
+    {
+      "action": "view",
+      "label": "Attach",
+      "url": "codex://attach?t=REDACTED&s=skills-dev&w=2&p=%2",
+      "clear": true
+    }
+  ]
+}

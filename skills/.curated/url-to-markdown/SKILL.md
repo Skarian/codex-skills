@@ -14,8 +14,9 @@ Before every run, explicitly ask the user for network permission and wait for a 
 Never run or retry unless permission is granted for that specific run.
 When permission is granted, execute the command with explicit network escalation (sandbox permissions required for network access). If escalation is not granted, do not run.
 First run may take a few minutes while the stack warms up; avoid rerunning while it is starting.
+Before running, set the command/tool timeout to >=300s for cold starts or >=120s for warm starts (use the tool’s timeout parameter). If you cannot set an explicit timeout, do not declare failure until the full window elapses.
+No output during this window is normal.
 Requires `curl` for readiness checks.
-If your tool has a timeout, allow at least 180 seconds on the first run.
 
 ## Defaults
 

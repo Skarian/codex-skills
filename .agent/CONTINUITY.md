@@ -6,7 +6,7 @@ Add dated entries with provenance tags per AGENTS.md: [USER], [CODE], [TOOL], [A
 ## Snapshot
 
 Goal: 2026-01-31 [USER] Provide a generic url-to-markdown curated skill that prints markdown to stdout with minimal SKILL.md.
-Now: 2026-02-01 [CODE] SKILL.md now mandates explicit network permission before every run and explicit network escalation for execution.
+Now: 2026-02-01 [CODE] SKILL.md now mandates explicit network permission + escalation and prescribes command/tool timeouts (cold >=300s, warm >=120s).
 Next: 2026-02-01 [ASSUMPTION] None.
 Open Questions: 2026-02-01 [USER] None.
 
