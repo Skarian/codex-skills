@@ -6,8 +6,8 @@ Add dated entries with provenance tags per AGENTS.md: [USER], [CODE], [TOOL], [A
 ## Snapshot
 
 Goal: 2026-01-31 [USER] Provide a generic url-to-markdown curated skill that prints markdown to stdout with minimal SKILL.md.
-Now: 2026-02-01 [CODE] Switched readiness probe default to /v0/health/readiness based on live curl tests; RabbitMQ defaults remain.
-Next: 2026-02-01 [ASSUMPTION] Re-run selftest and scrape to confirm readiness probe and RabbitMQ fixes.
+Now: 2026-02-01 [CODE] SKILL.md now mandates explicit network permission before every run, including repeats.
+Next: 2026-02-01 [ASSUMPTION] None.
 Open Questions: 2026-02-01 [USER] None.
 
 ## Done (recent)
@@ -20,6 +20,8 @@ Open Questions: 2026-02-01 [USER] None.
 - 2026-02-01 [CODE] Removed health-wait stderr notice; documented 180s tool timeout guidance.
 - 2026-02-01 [CODE] Added RabbitMQ service and default NUQ_RABBITMQ_URL to avoid extract-worker crashes; documented overrides.
 - 2026-02-01 [CODE] Set readiness probe default to `/v0/health/readiness`.
+- 2026-02-01 [CODE] Made SKILL.md require explicit network permission before each run and forbid auto-runs.
+- 2026-02-01 [USER] Confirmed `url_to_markdown_selftest.sh` and `url_to_markdown_scrape.sh` succeed after readiness + RabbitMQ changes.
 - 2026-01-31 [USER] Validated `url_to_markdown_selftest.sh` and `url_to_markdown_scrape.sh` after shared-state changes.
 - 2026-01-31 [CODE] Archived ExecPlan `EP-2026-01-31__firecrawl-selfhosted-cli` and updated the index.
 - 2026-01-31 [CODE] Implemented shared state under `CODEX_HOME`/`~/.codex` with locking and updated docs/ignore rules.
@@ -74,6 +76,8 @@ Open Questions: 2026-02-01 [USER] None.
 - 2026-01-31 [USER] Reported API container logs showing Supabase client errors and worker shutdowns when DB auth is enabled without Supabase configuration.
 - 2026-01-31 [USER] `url_to_markdown_selftest.sh` completed with clean stdout output and immediate shutdown.
 - 2026-01-31 [USER] Confirmed `url_to_markdown_selftest.sh` and `url_to_markdown_scrape.sh` both work correctly after shared-state changes.
+- 2026-02-01 [USER] `url_to_markdown_selftest.sh` output shows Example Domain markdown and containers stop cleanly.
+- 2026-02-01 [USER] `url_to_markdown_scrape.sh https://example.com` returns Example Domain markdown.
 - 2026-01-31 [CODE] Archived ExecPlan `EP-2026-01-31__firecrawl-selfhosted-cli` and updated `.agent/execplans/INDEX.md`.
 - 2026-01-31 [CODE] Updated url-to-markdown scripts to run helper scripts via bash and hardened stale-lock cleanup; adjusted docs.
 - 2026-01-31 [CODE] Added empty-output retry logic to url-to-markdown scrape and documented the retry timing.

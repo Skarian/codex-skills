@@ -10,7 +10,8 @@ description: Convert a single URL to markdown with stdout output and idle shutdo
     bash "${CODEX_HOME:-$HOME/.codex}/skills/url-to-markdown/scripts/url_to_markdown_scrape.sh" <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
 
 Provide a URL and capture the markdown from stdout.
-If network access is gated, request approval before the first run (Docker pulls and fetches require network access).
+Before every run, explicitly ask the user for network permission and wait for a clear “yes.” Do this even for repeats.
+Do not run, retry, or re-run until permission is granted again.
 First run may take a few minutes while the stack warms up; avoid rerunning while it is starting.
 Requires `curl` for readiness checks.
 If your tool has a timeout, allow at least 180 seconds on the first run.
