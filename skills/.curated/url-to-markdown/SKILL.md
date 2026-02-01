@@ -11,7 +11,8 @@ description: Convert a single URL to markdown with stdout output and idle shutdo
 
 Provide a URL and capture the markdown from stdout.
 Before every run, explicitly ask the user for network permission and wait for a clear “yes.” Do this even for repeats.
-Do not run, retry, or re-run until permission is granted again.
+Never run or retry unless permission is granted for that specific run.
+When permission is granted, execute the command with explicit network escalation (sandbox permissions required for network access). If escalation is not granted, do not run.
 First run may take a few minutes while the stack warms up; avoid rerunning while it is starting.
 Requires `curl` for readiness checks.
 If your tool has a timeout, allow at least 180 seconds on the first run.
