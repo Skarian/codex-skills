@@ -25,10 +25,10 @@ This skill converts a single URL into markdown through a local, self-hosted pipe
 
 ## Usage
 
-    bash scripts/url_to_markdown_scrape.sh <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
+    bash "${CODEX_HOME:-$HOME/.codex}/skills/url-to-markdown/scripts/url_to_markdown_scrape.sh" <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
 
 ## Self-test
 
-    bash scripts/url_to_markdown_selftest.sh
+    bash "${CODEX_HOME:-$HOME/.codex}/skills/url-to-markdown/scripts/url_to_markdown_selftest.sh"
 
 The self-test prints markdown to stdout and stops the containers immediately after validation.

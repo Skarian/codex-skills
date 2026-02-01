@@ -7,9 +7,10 @@ description: Convert a single URL to markdown with stdout output and idle shutdo
 
 ## Run
 
-    bash scripts/url_to_markdown_scrape.sh <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
+    bash "${CODEX_HOME:-$HOME/.codex}/skills/url-to-markdown/scripts/url_to_markdown_scrape.sh" <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
 
 Provide a URL and capture the markdown from stdout.
+If network access is gated, request approval before the first run (Docker pulls and fetches require network access).
 
 ## Defaults
 

@@ -6,12 +6,13 @@ Add dated entries with provenance tags per AGENTS.md: [USER], [CODE], [TOOL], [A
 ## Snapshot
 
 Goal: 2026-01-31 [USER] Provide a generic url-to-markdown curated skill that prints markdown to stdout with minimal SKILL.md.
-Now: 2026-01-31 [CODE] Increased startup retry defaults to 120s with 10s intervals; updated advanced docs.
-Next: 2026-01-31 [ASSUMPTION] Re-test cold-start scrape to confirm new retry cadence.
+Now: 2026-01-31 [CODE] Updated url-to-markdown docs to use installed-path commands and added network-approval guidance.
+Next: 2026-01-31 [ASSUMPTION] Re-test skill from a fresh project using the installed-path command.
 Open Questions: 2026-01-31 [USER] None.
 
 ## Done (recent)
 
+- 2026-01-31 [CODE] Updated url-to-markdown SKILL/README/advanced docs to use installed-path commands and request network approval before first run.
 - 2026-01-31 [CODE] Increased default startup retry window to 120 seconds and retry interval to 10 seconds.
 - 2026-01-31 [CODE] Added empty-output retry logic (3 attempts, 10s wait) to the scrape script and documented it.
 - 2026-01-31 [CODE] Updated url-to-markdown scripts to invoke via bash and treat missing/invalid lock timestamps as stale; refreshed docs.
@@ -73,3 +74,4 @@ Open Questions: 2026-01-31 [USER] None.
 - 2026-01-31 [CODE] Updated url-to-markdown scripts to run helper scripts via bash and hardened stale-lock cleanup; adjusted docs.
 - 2026-01-31 [CODE] Added empty-output retry logic to url-to-markdown scrape and documented the retry timing.
 - 2026-01-31 [CODE] Updated default startup retry cadence to 120s total with 10s intervals.
+- 2026-01-31 [CODE] Updated url-to-markdown docs to use installed-path command examples and note network approval.
