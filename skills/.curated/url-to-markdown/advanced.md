@@ -6,7 +6,7 @@
 - If `CODEX_HOME` is unset, `HOME` must be set or the scripts will exit.
 - API URL: `http://localhost:3002`
 - Idle shutdown: 5 minutes (`300` seconds)
-- Startup retry window: 60 seconds, retry every 2 seconds
+- Startup retry window: 120 seconds, retry every 10 seconds
 - Empty output retry: 3 attempts, waiting 10 seconds between tries
 - Docker Compose project name: `firecrawl-selfhosted`
 - Images: `ghcr.io/firecrawl/firecrawl:latest` and `ghcr.io/firecrawl/playwright-service:latest`

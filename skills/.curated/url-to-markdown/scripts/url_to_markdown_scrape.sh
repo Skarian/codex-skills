@@ -28,8 +28,8 @@ lock_stale=600
 lock_acquired=0
 api_url="${FIRECRAWL_API_URL:-http://localhost:3002}"
 idle_seconds="${FIRECRAWL_IDLE_SECONDS:-300}"
-startup_timeout="${FIRECRAWL_STARTUP_TIMEOUT:-60}"
-retry_interval="${FIRECRAWL_RETRY_INTERVAL:-2}"
+startup_timeout="${FIRECRAWL_STARTUP_TIMEOUT:-120}"
+retry_interval="${FIRECRAWL_RETRY_INTERVAL:-10}"
 compose_project="${FIRECRAWL_COMPOSE_PROJECT:-firecrawl-selfhosted}"
 
 usage() {

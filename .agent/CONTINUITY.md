@@ -6,12 +6,13 @@ Add dated entries with provenance tags per AGENTS.md: [USER], [CODE], [TOOL], [A
 ## Snapshot
 
 Goal: 2026-01-31 [USER] Provide a generic url-to-markdown curated skill that prints markdown to stdout with minimal SKILL.md.
-Now: 2026-01-31 [CODE] Added empty-output retry (3 attempts, 10s wait) for url-to-markdown scrape; updated advanced docs.
-Next: 2026-01-31 [ASSUMPTION] Re-test cold-start scrape to confirm empty-output retry behavior.
+Now: 2026-01-31 [CODE] Increased startup retry defaults to 120s with 10s intervals; updated advanced docs.
+Next: 2026-01-31 [ASSUMPTION] Re-test cold-start scrape to confirm new retry cadence.
 Open Questions: 2026-01-31 [USER] None.
 
 ## Done (recent)
 
+- 2026-01-31 [CODE] Increased default startup retry window to 120 seconds and retry interval to 10 seconds.
 - 2026-01-31 [CODE] Added empty-output retry logic (3 attempts, 10s wait) to the scrape script and documented it.
 - 2026-01-31 [CODE] Updated url-to-markdown scripts to invoke via bash and treat missing/invalid lock timestamps as stale; refreshed docs.
 - 2026-01-31 [USER] Validated `url_to_markdown_selftest.sh` and `url_to_markdown_scrape.sh` after shared-state changes.
@@ -71,3 +72,4 @@ Open Questions: 2026-01-31 [USER] None.
 - 2026-01-31 [CODE] Archived ExecPlan `EP-2026-01-31__firecrawl-selfhosted-cli` and updated `.agent/execplans/INDEX.md`.
 - 2026-01-31 [CODE] Updated url-to-markdown scripts to run helper scripts via bash and hardened stale-lock cleanup; adjusted docs.
 - 2026-01-31 [CODE] Added empty-output retry logic to url-to-markdown scrape and documented the retry timing.
+- 2026-01-31 [CODE] Updated default startup retry cadence to 120s total with 10s intervals.
