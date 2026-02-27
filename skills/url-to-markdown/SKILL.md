@@ -7,9 +7,17 @@ description: Convert a single URL to markdown with stdout output and idle shutdo
 
 ## Run
 
-    bash "${CODEX_HOME:-$HOME/.codex}/skills/url-to-markdown/scripts/url_to_markdown_scrape.sh" <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
+    bash "./.agents/skills/url-to-markdown/scripts/url_to_markdown_scrape.sh" <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
 
 Provide a URL and capture the markdown from stdout.
+If this skill is installed globally in Codex, use:
+
+    bash "$HOME/.codex/skills/url-to-markdown/scripts/url_to_markdown_scrape.sh" <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
+
+If this skill is installed in Claude Code project scope, use:
+
+    bash "./.claude/skills/url-to-markdown/scripts/url_to_markdown_scrape.sh" <url> [--include-tags <tags>] [--exclude-tags <tags>] [--no-main] [-- <passthrough args>]
+
 Before every run, explicitly ask the user for network permission and wait for a clear “yes.” Do this even for repeats.
 Never run or retry unless permission is granted for that specific run.
 When permission is granted, execute the command with explicit network escalation (sandbox permissions required for network access). If escalation is not granted, do not run.

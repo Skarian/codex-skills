@@ -5,81 +5,66 @@ Add dated entries with provenance tags per AGENTS.md: [USER], [CODE], [TOOL], [A
 
 ## Snapshot
 
-Goal: 2026-01-31 [USER] Provide a generic url-to-markdown curated skill that prints markdown to stdout with minimal SKILL.md.
-Now: 2026-02-01 [CODE] SKILL.md now mandates explicit network permission + escalation and prescribes command/tool timeouts (cold >=300s, warm >=120s).
-Next: 2026-02-01 [ASSUMPTION] None.
-Open Questions: 2026-02-01 [USER] None.
+Goal: 2026-02-27 [USER] Fully migrate this repo to a Vercel `skills` CLI workflow with simpler structure, remove template skill content, and document Codex + Claude install commands and install paths.
+Now: 2026-02-27 [CODE] Repo migrated from `skills/.curated` scaffolding to flat `skills/<skill-name>`; docs now use `npx skills add` commands and install-location tables.
+Next: 2026-02-27 [ASSUMPTION] Await user review and any follow-up skill additions under the new flat layout.
+Open Questions: 2026-02-27 [USER] None.
 
 ## Done (recent)
 
-- 2026-01-31 [CODE] Updated url-to-markdown SKILL/README/advanced docs to use installed-path commands and request network approval before first run.
-- 2026-01-31 [CODE] Increased default startup retry window to 120 seconds and retry interval to 10 seconds.
-- 2026-01-31 [CODE] Added empty-output retry logic (3 attempts, 10s wait) to the scrape script and documented it.
-- 2026-01-31 [CODE] Updated url-to-markdown scripts to invoke via bash and treat missing/invalid lock timestamps as stale; refreshed docs.
-- 2026-02-01 [CODE] Added curl-based health readiness gate (default /health) before scraping and documented curl/cold-start expectations.
-- 2026-02-01 [CODE] Removed health-wait stderr notice; documented 180s tool timeout guidance.
-- 2026-02-01 [CODE] Added RabbitMQ service and default NUQ_RABBITMQ_URL to avoid extract-worker crashes; documented overrides.
-- 2026-02-01 [CODE] Set readiness probe default to `/v0/health/readiness`.
-- 2026-02-01 [CODE] Made SKILL.md require explicit network permission before each run and forbid auto-runs.
+- 2026-02-27 [CODE] Flattened skill layout to `skills/url-to-markdown` and removed `.curated`, `.experimental`, and `.example` directories (including template skill artifacts).
+- 2026-02-27 [CODE] Rewrote root `README.md` for Vercel workflow with skill inventory table and Codex/Claude install commands.
+- 2026-02-27 [CODE] Added explicit install-location documentation for project and global installs (`.agents`, `.claude`, and home directories).
+- 2026-02-27 [CODE] Updated `url-to-markdown` docs (`SKILL.md`, `README.md`, `advanced.md`) to use installed-path commands for Codex and Claude scopes.
+- 2026-02-27 [CODE] Updated `.gitignore` to ignore project-local installed skill directories (`.agents/skills`, `.claude/skills`).
 - 2026-02-01 [USER] Confirmed `url_to_markdown_selftest.sh` and `url_to_markdown_scrape.sh` succeed after readiness + RabbitMQ changes.
-- 2026-01-31 [USER] Validated `url_to_markdown_selftest.sh` and `url_to_markdown_scrape.sh` after shared-state changes.
-- 2026-01-31 [CODE] Archived ExecPlan `EP-2026-01-31__firecrawl-selfhosted-cli` and updated the index.
-- 2026-01-31 [CODE] Implemented shared state under `CODEX_HOME`/`~/.codex` with locking and updated docs/ignore rules.
-- 2026-01-31 [CODE] Implemented url-to-markdown curated skill with stdout-only markdown, public images, retries, and idle shutdown.
-- 2026-01-31 [CODE] Renamed and documented the skill, including `README.md` and `advanced.md`.
-- 2026-01-31 [CODE] Quieted compose output and suppressed transient retry noise.
-- 2026-01-28 [CODE] Repo scaffolding and ExecPlan index created (see `README.md`, `.agent/execplans/INDEX.md`).
+- 2026-01-31 [CODE] Implemented and documented the `url-to-markdown` skill with stdout-only output and shared state.
+
 ## Working set
 
 - .gitignore
-- .agent/execplans/archive/EP-2026-01-31__firecrawl-selfhosted-cli.md
-- .agent/execplans/archive/EP-2026-01-28__skills-repo-scaffold.md
-- .agent/execplans/INDEX.md
 - README.md
-- skills/.curated/README.md
-- skills/.curated/url-to-markdown/SKILL.md
-- skills/.curated/url-to-markdown/README.md
-- skills/.curated/url-to-markdown/advanced.md
-- skills/.curated/url-to-markdown/scripts/
+- skills/README.md
+- skills/url-to-markdown/SKILL.md
+- skills/url-to-markdown/README.md
+- skills/url-to-markdown/advanced.md
+- skills/url-to-markdown/scripts/url_to_markdown_scrape.sh
+- skills/url-to-markdown/scripts/url_to_markdown_selftest.sh
+- skills/url-to-markdown/scripts/url_to_markdown_up.sh
+- .agent/execplans/INDEX.md
+- .agent/execplans/archive/EP-2026-02-27__vercel-skills-migration.md
+
 ## Decisions
 
-- 2026-01-28 [USER] D001 ACTIVE: Mirror OpenAI skills structure (`skills/.curated`, `skills/.experimental`), document repo-level installs only (`--dest .codex/skills`), defer automation scripts, and include an example template under `skills/.example/` with stub folders.
-- 2026-01-31 [USER] D002 SUPERSEDED: Create a curated Firecrawl self-hosted CLI skill that uses `--api-url`, outputs markdown only, offers optional include/exclude tag filtering, avoids caching for now, stores deterministic outputs under `.codex/.firecrawl/output`, auto spins down after 20 minutes idle, tracks the latest Firecrawl repo, and assumes the CLI is installed.
-- 2026-01-31 [USER] D003 ACTIVE: Move Firecrawl runtime state/output from `.agent/.firecrawl` to `.codex/.firecrawl` so the skill leaves nothing under `.agent`.
-- 2026-01-31 [USER] D004 ACTIVE: Ignore `.codex/.firecrawl` in git and set non-empty defaults (MODEL_NAME=disabled) for optional Firecrawl service variables to suppress compose warnings.
-- 2026-01-31 [USER] D005 ACTIVE: Add startup retry logic to handle ECONNRESET errors and show progress during idle shutdown waits; set MODEL_NAME to `disabled`.
-- 2026-01-31 [USER] D006 ACTIVE: Keep stdout reserved for output paths by sending scrape CLI output to stderr and replace empty `.env` values with non-empty defaults.
-- 2026-01-31 [USER] D007 ACTIVE: Force `USE_DB_AUTHENTICATION=false` and `DISABLE_BLOCKLIST=true` by default, with env overrides, to prevent Supabase-dependent worker crashes.
-- 2026-01-31 [USER] D008 ACTIVE: Redirect `firecrawl_up.sh` stdout to stderr to avoid output path contamination.
-- 2026-01-31 [USER] D009 ACTIVE: Set `firecrawl_selftest.sh` idle default to 5 minutes for faster validation.
-- 2026-01-31 [USER] D010 ACTIVE: Align CLI flag ordering with docs and add a grace period before the self-test fails the running-container check.
-- 2026-01-31 [USER] D011 ACTIVE: Output markdown to stdout only, disable output files, and stop containers immediately in self-test while keeping idle shutdown for normal runs.
-- 2026-01-31 [USER] D012 ACTIVE: Suppress transient retry errors so ECONNRESET messages are not shown unless the scrape fails.
-- 2026-01-31 [USER] D013 ACTIVE: Use public images with no local checkout, stdout-only output, and reduce idle shutdown default to 5 minutes.
-- 2026-01-31 [USER] D014 ACTIVE: Share state across installs at `CODEX_HOME/url-to-markdown/.state` (fallback `~/.codex/...`) with no per-project override.
-- 2026-01-31 [USER] D015 ACTIVE: Keep a single shared `.env` config across installs.
-- 2026-01-31 [USER] D016 ACTIVE: Add a shared lock for compose up/down and `last_used` updates to prevent multi-install races.
-- 2026-01-31 [USER] D017 ACTIVE: If `CODEX_HOME` is unset and `HOME` is unavailable, scripts exit with a hard error.
+- 2026-01-28 [USER] D001 SUPERSEDED: Mirror OpenAI skills structure (`skills/.curated`, `skills/.experimental`) with repo-level `--dest .codex/skills` guidance.
+- 2026-02-27 [USER] D018 ACTIVE: Adopt flat `skills/<name>` repository layout and Vercel `npx skills` install workflow as the default documentation path.
+- 2026-01-31 [USER] D003 ACTIVE: Keep Firecrawl runtime state/output under `.codex/.firecrawl` (not `.agent`).
+- 2026-01-31 [USER] D004 ACTIVE: Ignore `.codex/.firecrawl` in git and set non-empty defaults for optional Firecrawl service vars.
+- 2026-01-31 [USER] D005 ACTIVE: Keep startup retry logic for ECONNRESET handling and idle-shutdown progress output.
+- 2026-01-31 [USER] D006 ACTIVE: Keep scrape stdout reserved for markdown output path behavior and send non-result output to stderr.
+- 2026-01-31 [USER] D007 ACTIVE: Keep `USE_DB_AUTHENTICATION=false` and `DISABLE_BLOCKLIST=true` defaults with env overrides.
+- 2026-01-31 [USER] D008 ACTIVE: Keep `firecrawl_up.sh` stdout redirected to stderr.
+- 2026-01-31 [USER] D009 ACTIVE: Keep self-test idle default at 5 minutes for faster validation.
+- 2026-01-31 [USER] D010 ACTIVE: Keep CLI flag ordering aligned with docs and self-test grace period behavior.
+- 2026-01-31 [USER] D011 ACTIVE: Keep stdout-only markdown output and immediate container stop in self-test.
+- 2026-01-31 [USER] D012 ACTIVE: Keep transient retry-error suppression unless scrape fails.
+- 2026-01-31 [USER] D013 ACTIVE: Keep public images/no local checkout and 5-minute idle shutdown default.
+- 2026-01-31 [USER] D014 ACTIVE: Keep shared state at `CODEX_HOME/url-to-markdown/.state` (fallback `~/.codex/...`).
+- 2026-01-31 [USER] D015 ACTIVE: Keep single shared `.env` config across installs.
+- 2026-01-31 [USER] D016 ACTIVE: Keep shared lock for compose and `last_used` updates.
+- 2026-01-31 [USER] D017 ACTIVE: If `CODEX_HOME` is unset and `HOME` unavailable, scripts hard-fail.
+
 ## Receipts
 
-- 2026-01-28 [TOOL] Read `.agent/PLANS.md` and `.agent/execplans/INDEX.md` to follow ExecPlan requirements.
-- 2026-01-28 [TOOL] Created repo scaffolding directories and README content; verified with `ls` and `rg`.
-- 2026-01-28 [TOOL] Archived ExecPlan and updated ExecPlan index.
-- 2026-01-31 [TOOL] Created ExecPlan `EP-2026-01-31__firecrawl-selfhosted-cli` and updated the ExecPlan index.
-- 2026-01-31 [TOOL] Added the Firecrawl self-hosted CLI skill files and updated related documentation and ExecPlan progress.
-- 2026-01-31 [TOOL] Reviewed Firecrawl CLI and self-hosted docs on docs.firecrawl.dev for flags and required env configuration.
-- 2026-01-31 [TOOL] Re-checked Firecrawl CLI docs confirming `--api-url` as a global option and `--format` usage.
-- 2026-01-31 [TOOL] Checked Firecrawl CLI installation docs to confirm the current install command for the CLI.
-- 2026-01-31 [USER] `firecrawl_selftest.sh` completed successfully; output at `.codex/.firecrawl/output/100680ad546ce6a577f42f52df33b4cfdca756859e664b8d7de329b150d09ce9.md`.
-- 2026-01-31 [USER] Ran `firecrawl_selftest.sh`; output showed docker image pulls and warnings for unset optional variables; completion status UNCONFIRMED.
-- 2026-01-31 [USER] Re-ran `firecrawl_selftest.sh`; output showed `Error: read ECONNRESET` after containers started; fix pending.
-- 2026-01-31 [USER] Reported API container logs showing Supabase client errors and worker shutdowns when DB auth is enabled without Supabase configuration.
-- 2026-01-31 [USER] `url_to_markdown_selftest.sh` completed with clean stdout output and immediate shutdown.
-- 2026-01-31 [USER] Confirmed `url_to_markdown_selftest.sh` and `url_to_markdown_scrape.sh` both work correctly after shared-state changes.
+- 2026-02-27 [TOOL] Verified current repository layout and files with `find` and `sed` before migration.
+- 2026-02-27 [TOOL] Confirmed Vercel CLI support for `skills/.curated` and `skills/` plus Codex/Claude install locations from `vercel-labs/skills` README (`Skill Discovery`, `Installation Locations`).
+- 2026-02-27 [TOOL] Created ExecPlan `EP-2026-02-27__vercel-skills-migration` and added it to `.agent/execplans/INDEX.md`.
+- 2026-02-27 [TOOL] Applied structural migration: moved `skills/.curated/url-to-markdown` to `skills/url-to-markdown`; removed `.curated`, `.experimental`, `.example`, and `skills/.DS_Store`.
+- 2026-02-27 [TOOL] Rewrote root and skill docs to Vercel commands and `.agents/.claude` installed-path usage.
+- 2026-02-27 [TOOL] Updated `.gitignore` for `.agents/skills/` and `.claude/skills/`.
+- 2026-02-27 [TOOL] Validation: `bash -n` passed for all `url-to-markdown` scripts after path migration.
+- 2026-02-27 [TOOL] Validation: `rg` found no remaining `.curated/.experimental/.example` or `$skill-installer` references in `README.md` and `skills/`.
+- 2026-02-27 [TOOL] Archived `EP-2026-02-27__vercel-skills-migration` and updated `.agent/execplans/INDEX.md`.
+- 2026-02-27 [USER] Confirmed deletion of `.state/notify.log` and `.state/notify_last_payload.json` is intentional.
 - 2026-02-01 [USER] `url_to_markdown_selftest.sh` output shows Example Domain markdown and containers stop cleanly.
 - 2026-02-01 [USER] `url_to_markdown_scrape.sh https://example.com` returns Example Domain markdown.
-- 2026-01-31 [CODE] Archived ExecPlan `EP-2026-01-31__firecrawl-selfhosted-cli` and updated `.agent/execplans/INDEX.md`.
-- 2026-01-31 [CODE] Updated url-to-markdown scripts to run helper scripts via bash and hardened stale-lock cleanup; adjusted docs.
-- 2026-01-31 [CODE] Added empty-output retry logic to url-to-markdown scrape and documented the retry timing.
-- 2026-01-31 [CODE] Updated default startup retry cadence to 120s total with 10s intervals.
-- 2026-01-31 [CODE] Updated url-to-markdown docs to use installed-path command examples and note network approval.

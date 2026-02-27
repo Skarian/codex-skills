@@ -1,25 +1,39 @@
 # Codex Skills Repository
 
-This repository is the primary home for custom Codex skills. It is structured to work with the Codex `skill-installer` and to support repo-level installs only.
+Vercel `skills` CLI-compatible skill repository.
 
-## Repository Layout
+## Repository layout
 
-- `skills/.curated/`: Stable skills intended for regular use.
-- `skills/.experimental/`: Skills that are still evolving.
-- `skills/.example/`: Template skills to copy when creating new skills. Do not install these directly.
-
-Each skill lives in its own folder and must include `SKILL.md`. Optional folders are `scripts/`, `references/`, and `assets/`.
-
-## Quick Start (repo-level install only)
-
-From the target repository where you want the skill available:
-
-```
-$skill-installer let me pick skills from https://github.com/Skarian/codex-skills/tree/main/skills/.curated/
+```text
+skills/
+  url-to-markdown/
+    SKILL.md
+    README.md
+    advanced.md
+    scripts/
 ```
 
-Restart Codex to pick up new skills.
+## Install locations
 
-## Skills
+| Agent | Project install (default) | Global install (`-g`) |
+| --- | --- | --- |
+| Codex | `.agents/skills/<skill-name>/` | `~/.codex/skills/<skill-name>/` |
+| Claude Code | `.claude/skills/<skill-name>/` | `~/.claude/skills/<skill-name>/` |
 
-- `skills/.curated/url-to-markdown`: Local URL-to-markdown pipeline that prints markdown to stdout with idle shutdown.
+Run install commands from the project root when you want project-scoped installs.
+
+## Available skills
+
+| Name | Description | Install command (Codex) | Install command (Claude Code) |
+| --- | --- | --- | --- |
+| `url-to-markdown` | Local URL-to-markdown pipeline using Firecrawl self-hosted, with stdout output and idle shutdown. | `npx skills add https://github.com/Skarian/codex-skills --skill url-to-markdown -a codex -y` | `npx skills add https://github.com/Skarian/codex-skills --skill url-to-markdown -a claude-code -y` |
+
+## Listing skills from this repo
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills --list -a codex
+```
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills --list -a claude-code
+```

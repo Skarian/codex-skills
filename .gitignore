@@ -1,2 +1,5 @@
 .DS_Store
-.codex/url-to-markdown/.state/
+.agents/skills/
+.claude/skills/
+.agent/
+.agents/
