@@ -2,35 +2,31 @@
 
 Vercel `skills` CLI-compatible skill repository.
 
-## Repository layout
-
-```text
-skills/
-  execplan-review/
-    SKILL.md
-    README.md
-  url-to-markdown/
-    SKILL.md
-    README.md
-    advanced.md
-    scripts/
-```
-
 ## Install locations
 
 | Agent | Project install (default) | Global install (`-g`) |
 | --- | --- | --- |
 | Codex | `.agents/skills/<skill-name>/` | `~/.codex/skills/<skill-name>/` |
-| Claude Code | `.claude/skills/<skill-name>/` | `~/.claude/skills/<skill-name>/` |
 
 Run install commands from the project root when you want project-scoped installs.
 
 ## Available skills
 
-| Name | Description | Install command (Codex) | Install command (Claude Code) |
-| --- | --- | --- | --- |
-| `execplan-review` | Use when the user requests a review of the ExecPlan. | `npx skills add https://github.com/Skarian/codex-skills --skill execplan-review -a codex -y` | `npx skills add https://github.com/Skarian/codex-skills --skill execplan-review -a claude-code -y` |
-| `url-to-markdown` | Local URL-to-markdown pipeline using Firecrawl self-hosted, with stdout output and idle shutdown. | `npx skills add https://github.com/Skarian/codex-skills --skill url-to-markdown -a codex -y` | `npx skills add https://github.com/Skarian/codex-skills --skill url-to-markdown -a claude-code -y` |
+### `execplan-review`
+
+Use when the user requests a review of the ExecPlan.
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills --skill execplan-review -a codex -y
+```
+
+### `url-to-markdown`
+
+Local URL-to-markdown pipeline using Firecrawl self-hosted, with stdout output and idle shutdown.
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills --skill url-to-markdown -a codex -y
+```
 
 ## Listing skills from this repo
 
@@ -38,6 +34,18 @@ Run install commands from the project root when you want project-scoped installs
 npx skills add https://github.com/Skarian/codex-skills --list -a codex
 ```
 
+## Using With Claude Code
+
+Claude Code project install path: `.claude/skills/<skill-name>/`.
+
+To list skills:
+
 ```bash
 npx skills add https://github.com/Skarian/codex-skills --list -a claude-code
+```
+
+To install a skill:
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills --skill <skill-name> -a claude-code -y
 ```
