@@ -6,6 +6,9 @@ Vercel `skills` CLI-compatible skill repository.
 
 ```text
 skills/
+  execplan-review/
+    SKILL.md
+    README.md
   url-to-markdown/
     SKILL.md
     README.md
@@ -26,6 +29,7 @@ Run install commands from the project root when you want project-scoped installs
 
 | Name | Description | Install command (Codex) | Install command (Claude Code) |
 | --- | --- | --- | --- |
+| `execplan-review` | Use when the user requests a review of the ExecPlan. | `npx skills add https://github.com/Skarian/codex-skills --skill execplan-review -a codex -y` | `npx skills add https://github.com/Skarian/codex-skills --skill execplan-review -a claude-code -y` |
 | `url-to-markdown` | Local URL-to-markdown pipeline using Firecrawl self-hosted, with stdout output and idle shutdown. | `npx skills add https://github.com/Skarian/codex-skills --skill url-to-markdown -a codex -y` | `npx skills add https://github.com/Skarian/codex-skills --skill url-to-markdown -a claude-code -y` |
 
 ## Listing skills from this repo
