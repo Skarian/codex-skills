@@ -20,6 +20,14 @@ Use when the user requests a review of the ExecPlan.
 npx skills add https://github.com/Skarian/codex-skills --skill execplan-review -a codex -y
 ```
 
+### `reference-module`
+
+Use to research git repos when user requests.
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills --skill reference-module -a codex -y
+```
+
 ### `url-to-markdown`
 
 Local URL-to-markdown pipeline using Firecrawl self-hosted, with stdout output and idle shutdown.
