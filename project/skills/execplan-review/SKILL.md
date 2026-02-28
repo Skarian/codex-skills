@@ -20,3 +20,4 @@ Output format (use this):
 - `Confidence: <N>%`
 - `Key risks (numbered): ...`
 - `Proposals if <95% (numbered): ...`
+- For numbered findings/proposals, put each bullet on its own line; never combine multiple bullets onto one line.
