@@ -4,6 +4,8 @@ This skill forces a deep, end-to-end review before implementation:
 
 - Read the ExecPlan fully (no greps).
 - Read all referenced and likely-impacted source files.
+- Keep findings pragmatic: report only material, evidence-backed risks.
+- Verify the plan has enough code contracts (interfaces, data boundaries, invariants, verification) to execute without guesswork.
 - Produce a confidence rating (0-100%).
 - If `<95%`, propose concrete fixes or recommend rejecting the ExecPlan.
 

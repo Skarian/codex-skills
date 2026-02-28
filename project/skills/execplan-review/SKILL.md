@@ -13,11 +13,26 @@ Once you have reviewed all relevant files (and don't be shy, I expect you to use
 
 Consider factors like if the plan unintentionally introduces bugs, bad side-effects, if we need to reconsider our approach from first principles, any potential AI drift / slop.
 
+Calibrate for pragmatism:
+
+- Include only material, evidence-backed risks that are likely to cause regressions, blocked execution, or significant rework.
+- Do not list speculative or low-value cautions that add process friction without a clear risk payoff.
+- Prefer the smallest set of findings needed to execute safely.
+
+Before assigning confidence, verify the ExecPlan includes enough code contracts for reliable execution without guesswork. At minimum, check for:
+
+- Concrete file/module touchpoints
+- API/function/interface boundaries expected to change
+- Data shapes/schema expectations at boundaries
+- Invariants and error-handling expectations
+- Verification steps that prove those contracts are satisfied
+
 Provide your confidence rating on a scale of 0-100%, if the rating is below 95% then you must provide a list of proposals to bridge the gap or propose rejecting the execplan in its entirety
 
 Output format (use this):
 
 - `Confidence: <N>%`
-- `Key risks (numbered): ...`
-- `Proposals if <95% (numbered): ...`
+- `Key risks (numbered, material-only): ...`
+- `Code-contract gaps (numbered): ...`
+- `Proposals if <95% (numbered, lowest-friction-first): ...`
 - For numbered findings/proposals, put each bullet on its own line; never combine multiple bullets onto one line.
