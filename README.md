@@ -1,59 +1,64 @@
-# Codex Skills Repository
+# My Personal Codex Skills Repository
 
-Vercel `skills` CLI-compatible skill repository.
+Vercel `skills` CLI-compatible repository with separated source packs:
 
-## Install locations
+- `project/`: project-specific skills for repo-local installs.
+- `user/`: user-level skills for global installs.
 
-| Agent | Project install (default) | Global install (`-g`) |
-| --- | --- | --- |
-| Codex | `.agents/skills/<skill-name>/` | `~/.codex/skills/<skill-name>/` |
+## Project-specific skills
 
-Run install commands from the project root when you want project-scoped installs.
+List available skills
 
-## Available skills
+```bash
+npx skills add https://github.com/Skarian/codex-skills/tree/main/project --list -a codex
+```
 
-### `execplan-review`
+Interactive picker (choose a subset)
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills/tree/main/project -a codex
+```
+
+### execplan-review
 
 Use when the user requests a review of the ExecPlan.
 
 ```bash
-npx skills add https://github.com/Skarian/codex-skills --skill execplan-review -a codex -y
+npx skills add https://github.com/Skarian/codex-skills/tree/main/project --skill execplan-review -a codex -y
 ```
 
-### `reference-module`
+### reference-module
 
 Use to research git repos when user requests.
 
 ```bash
-npx skills add https://github.com/Skarian/codex-skills --skill reference-module -a codex -y
+npx skills add https://github.com/Skarian/codex-skills/tree/main/project --skill reference-module -a codex -y
 ```
 
-### `url-to-markdown`
+## User-level skills
+
+List available skills
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills/tree/main/user --list -a codex
+```
+
+Interactive picker (choose a subset)
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills/tree/main/user -a codex -g
+```
+
+### url-to-markdown
 
 Local URL-to-markdown pipeline using Firecrawl self-hosted, with stdout output and idle shutdown.
 
 ```bash
-npx skills add https://github.com/Skarian/codex-skills --skill url-to-markdown -a codex -y
+npx skills add https://github.com/Skarian/codex-skills/tree/main/user --skill url-to-markdown -a codex -g -y
 ```
 
-## Listing skills from this repo
+## Install locations
 
-```bash
-npx skills add https://github.com/Skarian/codex-skills --list -a codex
-```
-
-## Using With Claude Code
-
-Claude Code project install path: `.claude/skills/<skill-name>/`.
-
-To list skills:
-
-```bash
-npx skills add https://github.com/Skarian/codex-skills --list -a claude-code
-```
-
-To install a skill:
-
-```bash
-npx skills add https://github.com/Skarian/codex-skills --skill <skill-name> -a claude-code -y
-```
+| Agent | Project install                | Global install                  |
+| ----- | ------------------------------ | ------------------------------- |
+| Codex | `.agents/skills/<skill-name>/` | `~/.codex/skills/<skill-name>/` |

@@ -6,11 +6,11 @@ Default behavior pins the submodule to the latest available commit at `HEAD` (or
 Install (Codex):
 
 ```bash
-npx skills add https://github.com/Skarian/codex-skills --skill reference-module -a codex -y
+npx skills add https://github.com/Skarian/codex-skills/tree/main/project --skill reference-module -a codex -y
 ```
 
 Install (Claude Code):
 
 ```bash
-npx skills add https://github.com/Skarian/codex-skills --skill reference-module -a claude-code -y
+npx skills add https://github.com/Skarian/codex-skills/tree/main/project --skill reference-module -a claude-code -y
 ```

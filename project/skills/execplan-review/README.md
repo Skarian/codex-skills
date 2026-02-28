@@ -10,11 +10,11 @@ This skill forces a deep, end-to-end review before implementation:
 Install (Codex):
 
 ```bash
-npx skills add https://github.com/Skarian/codex-skills --skill execplan-review -a codex -y
+npx skills add https://github.com/Skarian/codex-skills/tree/main/project --skill execplan-review -a codex -y
 ```
 
 Install (Claude Code):
 
 ```bash
-npx skills add https://github.com/Skarian/codex-skills --skill execplan-review -a claude-code -y
+npx skills add https://github.com/Skarian/codex-skills/tree/main/project --skill execplan-review -a claude-code -y
 ```

@@ -4,13 +4,21 @@ Backend uses the Firecrawl self-hosted stack.
 
 ## Install
 
+Codex global install (recommended user-level install):
+
+    npx skills add https://github.com/Skarian/codex-skills/tree/main/user --skill url-to-markdown -a codex -g -y
+
 Codex project install:
 
-    npx skills add https://github.com/Skarian/codex-skills --skill url-to-markdown -a codex -y
+    npx skills add https://github.com/Skarian/codex-skills/tree/main/user --skill url-to-markdown -a codex -y
+
+Claude Code global install:
+
+    npx skills add https://github.com/Skarian/codex-skills/tree/main/user --skill url-to-markdown -a claude-code -g -y
 
 Claude Code project install:
 
-    npx skills add https://github.com/Skarian/codex-skills --skill url-to-markdown -a claude-code -y
+    npx skills add https://github.com/Skarian/codex-skills/tree/main/user --skill url-to-markdown -a claude-code -y
 
 ## User requirements
 
