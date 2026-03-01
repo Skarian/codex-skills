@@ -27,6 +27,14 @@ Use when the user requests a review of the ExecPlan.
 npx skills add https://github.com/Skarian/codex-skills/tree/main/project --skill execplan-review -a codex -y
 ```
 
+### precommit-review
+
+Use when the user requests a phased pre-commit review of the worktree.
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills/tree/main/project --skill precommit-review -a codex -y
+```
+
 ### reference-module
 
 Use to research git repos when user requests.
