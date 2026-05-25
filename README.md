@@ -43,6 +43,14 @@ Stress-test a plan or design through a one-question-at-a-time interview. Copied 
 npx skills add https://github.com/Skarian/codex-skills/tree/main/project --skill grill-me -a codex -y
 ```
 
+### humanizer
+
+Remove signs of AI-generated writing from text. Copied verbatim from [`blader/humanizer`](https://github.com/blader/humanizer/blob/main/SKILL.md).
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills/tree/main/project --skill humanizer -a codex -y
+```
+
 ### precommit-review
 
 Use when the user requests a phased pre-commit review of the worktree.

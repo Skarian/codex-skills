@@ -7,6 +7,7 @@ Current skills:
 - `execplan-grill`: Use as the first step when the user wants an ExecPlan.
 - `execplan-review`: Use when the user requests a review of the ExecPlan.
 - `grill-me`: Stress-test a plan or design through a one-question-at-a-time interview. Copied verbatim from Matt Pocock's [`grill-me`](https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md).
+- `humanizer`: Remove signs of AI-generated writing from text. Copied verbatim from [`blader/humanizer`](https://github.com/blader/humanizer/blob/main/SKILL.md).
 - `precommit-review`: Use when the user requests a phased pre-commit review of the worktree.
 - `reference-module`: Use to research git repos when user requests.
 - `chatgpt-pro-review`: Use when the user explicitly asks Codex to consult ChatGPT Pro through the Codex app browser.
