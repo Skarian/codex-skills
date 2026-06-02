@@ -1,0 +1,24 @@
+# General Skills
+
+Skills meant to be installed system-wide
+
+## Install
+
+Install skills from this category:
+
+```bash
+npx skills add https://github.com/Skarian/codex-skills/tree/main/skills/general --global
+```
+
+## Skills
+
+| Skill | Description |
+| --- | --- |
+| `chatgpt-pro-review` | Consult ChatGPT Pro through the Codex app browser |
+| `consensus` | Use subagent review waves to reach consensus |
+| `discussion` | Discuss multiple open items clearly |
+| `friend` | Use Claude, Gemini, or Codex for reviews |
+| `grill-me` | Create a shared understanding between agent and user |
+| `humanizer` | Remove AI slop from writing |
+| `reference-module` | Study a git repository with a local cache across projects |
+| `skill-research` | Scan Codex sessions, memories, and Chronicle for potential skills |

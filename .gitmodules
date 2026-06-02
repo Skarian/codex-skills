@@ -1,6 +1,0 @@
-[submodule "references/codex-imessage-handoff"]
-	path = references/codex-imessage-handoff
-	url = https://github.com/gragland/codex-imessage-handoff.git
-[submodule "references/skills"]
-	path = references/skills
-	url = https://github.com/mattpocock/skills.git

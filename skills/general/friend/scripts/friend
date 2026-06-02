@@ -1,0 +1,193 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  printf 'Usage: friend <claude|gemini|codex> "question" [evidence paths or URLs...] [--model name]\n' >&2
+}
+
+if [ "$#" -eq 1 ]; then
+  case "$1" in
+    -h|--help)
+      usage
+      exit 0
+      ;;
+  esac
+fi
+
+if [ "$#" -lt 2 ]; then
+  usage
+  exit 2
+fi
+
+provider="$1"
+shift
+
+case "$provider" in
+  claude|gemini|codex) ;;
+  -h|--help)
+    usage
+    exit 0
+    ;;
+  *)
+    printf 'friend: unknown provider: %s\n' "$provider" >&2
+    usage
+    exit 2
+    ;;
+esac
+
+model=""
+question=""
+evidence=()
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --model)
+      if [ "$#" -lt 2 ]; then
+        printf 'friend: --model requires a value\n' >&2
+        exit 2
+      fi
+      model="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --*)
+      printf 'friend: unknown option: %s\n' "$1" >&2
+      usage
+      exit 2
+      ;;
+    *)
+      if [ -z "$question" ]; then
+        question="$1"
+      else
+        evidence+=("$1")
+      fi
+      shift
+      ;;
+  esac
+done
+
+if [ -z "$question" ]; then
+  usage
+  exit 2
+fi
+
+abs_path() {
+  if [ -d "$1" ]; then
+    (cd "$1" && pwd)
+  else
+    local dir
+    local base
+    dir=$(dirname "$1")
+    base=$(basename "$1")
+    (cd "$dir" && printf '%s/%s\n' "$PWD" "$base")
+  fi
+}
+
+is_url() {
+  case "$1" in
+    http://*|https://*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+is_image() {
+  case "${1##*.}" in
+    png|PNG|jpg|JPG|jpeg|JPEG|gif|GIF|webp|WEBP|bmp|BMP|tif|TIF|tiff|TIFF) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+add_unique_dir() {
+  local dir="$1"
+  local existing
+  for existing in "${dirs[@]}"; do
+    if [ "$existing" = "$dir" ]; then
+      return
+    fi
+  done
+  dirs+=("$dir")
+}
+
+dirs=()
+images=()
+resolved_evidence=()
+
+for item in "${evidence[@]}"; do
+  if is_url "$item"; then
+    resolved_evidence+=("$item")
+    continue
+  fi
+
+  if [ ! -e "$item" ]; then
+    printf 'friend: evidence not found: %s\n' "$item" >&2
+    exit 2
+  fi
+
+  resolved=$(abs_path "$item")
+  resolved_evidence+=("$resolved")
+
+  if [ -d "$resolved" ]; then
+    add_unique_dir "$resolved"
+  else
+    add_unique_dir "$(dirname "$resolved")"
+    if is_image "$resolved"; then
+      images+=("$resolved")
+    fi
+  fi
+done
+
+prompt="You are a second-opinion reviewer. Give read-only advice only; do not edit files or ask to make changes yourself.
+
+Question:
+$question"
+
+if [ "${#resolved_evidence[@]}" -gt 0 ]; then
+  prompt="$prompt
+
+Evidence:"
+  for item in "${resolved_evidence[@]}"; do
+    prompt="$prompt
+- $item"
+  done
+else
+  prompt="$prompt
+
+Context: current directory."
+fi
+
+case "$provider" in
+  claude)
+    cmd=(claude -p "$prompt" --no-session-persistence --permission-mode plan)
+    if [ -n "$model" ]; then
+      cmd+=(--model "$model")
+    fi
+    for dir in "${dirs[@]}"; do
+      cmd+=(--add-dir "$dir")
+    done
+    exec "${cmd[@]}"
+    ;;
+  gemini)
+    cmd=(gemini -p "$prompt" --approval-mode plan)
+    if [ -n "$model" ]; then
+      cmd+=(--model "$model")
+    fi
+    for dir in "${dirs[@]}"; do
+      cmd+=(--include-directories "$dir")
+    done
+    exec "${cmd[@]}"
+    ;;
+  codex)
+    cmd=(codex exec --ephemeral -C "$PWD" --sandbox read-only)
+    if [ -n "$model" ]; then
+      cmd+=(--model "$model")
+    fi
+    for image in "${images[@]}"; do
+      cmd+=(-i "$image")
+    done
+    cmd+=("$prompt")
+    exec "${cmd[@]}"
+    ;;
+esac
