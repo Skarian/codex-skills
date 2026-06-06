@@ -19,6 +19,7 @@ npx skills add https://github.com/Skarian/skills/tree/main/skills/general --glob
 | `discussion` | Discuss multiple open items clearly |
 | `friend` | Use Claude, Gemini, or Codex for reviews |
 | `grill-me` | Create a shared understanding between agent and user |
+| `handoff` | Compact the current conversation into a handoff document for another agent to pick up |
 | `humanizer` | Remove AI slop from writing |
 | `reference-module` | Study a git repository with a local cache across projects |
 | `skill-research` | Scan Codex sessions, memories, and Chronicle for potential skills |
