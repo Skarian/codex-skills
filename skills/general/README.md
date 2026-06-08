@@ -23,3 +23,4 @@ npx skills add https://github.com/Skarian/skills/tree/main/skills/general --glob
 | `humanizer` | Remove AI slop from writing |
 | `reference-module` | Study a git repository with a local cache across projects |
 | `skill-research` | Scan Codex sessions, memories, and Chronicle for potential skills |
+| `relay` | Coordinate local apps and UIs with existing agents through a durable MCP relay |
